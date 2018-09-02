@@ -20,7 +20,8 @@ module ZoqlConsole
     # @param argv [Hash] Command line arguments
     def initialize(argv)
       @argv = argv
-      @console = Console.new
+      @config = Config.default
+      @console = Console.new(config: @config)
     end
 
     # Start CLI program
@@ -33,6 +34,7 @@ module ZoqlConsole
 
     def option_parser
       @option_parser ||= OptionParser.new do |opts|
+        # Informational options
         opts.on("-h", "--help", "Display this help message and exit") do
           puts version
           puts opts
@@ -42,6 +44,11 @@ module ZoqlConsole
         opts.on("-V", "--version", "Output version information and exit") do
           puts version
           exit
+        end
+
+        # Zuora connection options
+        opts.on("-h HOSTNAME", "--zuora-host=HOSTNAME", "Use HOSTNAME for connecting to Zuora") do |hostname|
+          @config.zuora_host = hostname
         end
       end
     end

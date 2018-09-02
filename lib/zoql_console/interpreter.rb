@@ -2,7 +2,9 @@
 
 require "readline"
 
+require "zoql_console/command/base"
 require "zoql_console/command/help_command"
+require "zoql_console/command/print_config_command"
 
 module ZoqlConsole
   # Console command interpreter
@@ -27,6 +29,7 @@ module ZoqlConsole
     def command
       case first
       when '\?' then Command::HelpCommand
+      when '\config' then Command::PrintConfigCommand
       else
         puts "Unknown command: #{buffer}"
       end

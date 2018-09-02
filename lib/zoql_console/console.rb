@@ -6,8 +6,11 @@ module ZoqlConsole
   # ZOQL query console
   class Console
     # Initialize interactive console
-    def initialize
+    #
+    # @param config [ZoqlConsole::Config] configuration object
+    def initialize(config:)
       @interpreter = Interpreter.new
+      @config = config
     end
 
     # Start the interactive console
@@ -22,7 +25,7 @@ module ZoqlConsole
         end
 
         command = @interpreter.command
-        command&.run
+        command&.run(config: @config)
       end
     end
   end

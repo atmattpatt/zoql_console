@@ -5,6 +5,7 @@ Feature: Console commands
     When I send command "\?"
     Then the console should still be running
     And the output should match "\\\?\s+Display this help"
+    And the output should match "\\config\s+Display configuration information"
     And the output should match "\\q\s+Quit the console"
 
   Scenario: Quitting the console with "\q"

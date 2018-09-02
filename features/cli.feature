@@ -10,3 +10,4 @@ Feature: Command line interface
     Then the console should exit
     And the output should match "--help\s+Display this help message"
     And the output should match "--version\s+Output version information"
+    And the output should match "--zuora-host=HOSTNAME\s+Use HOSTNAME for connecting to Zuora"

@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-Given "a running console" do
+def run_zoql(args = [])
   @read_pipe, @write_pipe = IO.pipe
   @parent_io, @child_file = PTY.open
 
   @console_pid = Process.spawn(
     console_command,
+    *args,
     err: @child_file,
     in: @read_pipe,
     out: @child_file,
@@ -14,6 +15,14 @@ Given "a running console" do
 
   @read_pipe.close
   @child_file.close
+end
+
+Given "a running console" do
+  run_zoql
+end
+
+When "I run zoql with {string}" do |args|
+  run_zoql(args.split)
 end
 
 When "I send command {string}" do |command|

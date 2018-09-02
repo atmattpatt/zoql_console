@@ -6,4 +6,4 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require "zoql_console"
 
-ZoqlConsole::CLI.start
+ZoqlConsole::CLI.start(ARGV)

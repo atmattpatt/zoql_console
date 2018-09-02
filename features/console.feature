@@ -27,6 +27,18 @@ Feature: Console commands
     When I send command "      "
     Then the console should still be running
 
+  Scenario: Trapping Ctrl+C to abort the current command
+    Given a running console
+    When I signal "INT"
+    Then the console should still be running
+
+  Scenario: Trapping Ctrl+D to quit the console
+    Given a running console
+    When I send a null byte
+    Then the console should exit
+    And the exit status should be 0
+    And the output should contain "Bye!"
+
   Scenario: Unknown commands
     Given a running console
     When I send command "boom"

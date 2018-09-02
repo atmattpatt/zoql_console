@@ -37,7 +37,7 @@ module ZoqlConsole
 
     # @return [Boolean] whether or not this is an exit command
     def exit?
-      first == '\q' || first == "exit"
+      buffer.nil? || first == '\q' || first == "exit"
     end
 
     private

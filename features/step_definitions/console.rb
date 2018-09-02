@@ -41,6 +41,16 @@ When "I send command {string}" do |command|
   @write_pipe.close
 end
 
+When "I send a null byte" do
+  @write_pipe.puts("\0")
+  @write_pipe.close
+end
+
+When "I signal {string}" do |signal|
+  sleep 0.1
+  Process.kill(signal, @console_pid)
+end
+
 Then "the console should still be running" do
   expect(PTY.check(@console_pid)).to be_nil, "Process is not running"
   kill_console_if_running

@@ -46,6 +46,11 @@ RSpec.describe ZoqlConsole::Interpreter do
       expect(subject).to be_exit
     end
 
+    it "is true for a null buffer (i.e. Ctrl+D)" do
+      subject.buffer = nil
+      expect(subject).to be_exit
+    end
+
     it "is false for other values" do
       subject.buffer = '\?'
       expect(subject).not_to be_exit

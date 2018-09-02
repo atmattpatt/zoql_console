@@ -16,13 +16,19 @@ module ZoqlConsole
     # Start the interactive console
     def start
       loop do
-        @interpreter.buffer = Readline.readline("zoql> ", true)
-        next if @interpreter.blank?
+        begin
+          @interpreter.buffer = Readline.readline("zoql> ", true)
+        rescue Interrupt
+          puts
+          retry
+        end
 
         if @interpreter.exit?
           puts "Bye!"
           break
         end
+
+        next if @interpreter.blank?
 
         command = @interpreter.command
         command&.run(config: @config)

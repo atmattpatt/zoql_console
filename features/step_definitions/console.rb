@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Run the zoql program
+#
+# @param args [Array] command line args
 def run_zoql(args = [])
   @read_pipe, @write_pipe = IO.pipe
   @parent_io, @child_file = PTY.open
@@ -17,6 +20,14 @@ def run_zoql(args = [])
   @child_file.close
 end
 
+# Kill the console process if it is still running
+def kill_console_if_running
+  sleep 0.1
+  Process.kill("KILL", @console_pid) if PTY.check(@console_pid).nil?
+rescue Errno::ESRCH
+  # Do nothing
+end
+
 Given "a running console" do
   run_zoql
 end
@@ -32,7 +43,7 @@ end
 
 Then "the console should still be running" do
   expect(PTY.check(@console_pid)).to be_nil, "Process is not running"
-
+  kill_console_if_running
   @console_output = @parent_io.read
 end
 

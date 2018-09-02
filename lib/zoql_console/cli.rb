@@ -20,12 +20,13 @@ module ZoqlConsole
     # @param argv [Hash] Command line arguments
     def initialize(argv)
       @argv = argv
+      @console = Console.new
     end
 
-    # Start a CLI program
+    # Start CLI program
     def start
       option_parser.parse(@argv)
-      console
+      @console.start
     end
 
     private
@@ -47,30 +48,6 @@ module ZoqlConsole
 
     def version
       "zoql_console #{ZoqlConsole::VERSION}"
-    end
-
-    def console
-      loop do
-        buffer = Readline.readline("zoql> ", true)
-
-        if exit?(buffer)
-          puts "Bye!"
-          break
-        elsif help?(buffer)
-          puts '\? Display this help'
-          puts '\q Quit the console'
-        end
-      end
-    end
-
-    def help?(buffer)
-      buffer = buffer.split
-      buffer.first == '\?'
-    end
-
-    def exit?(buffer)
-      buffer = buffer.split
-      buffer.first == '\q' || buffer.first == "exit"
     end
   end
 end

@@ -20,3 +20,14 @@ Feature: Console commands
     Then the console should exit
     And the exit status should be 0
     And the output should contain "Bye!"
+
+  Scenario: Empty input lines
+    Given a running console
+    When I send command "      "
+    Then the console should still be running
+
+  Scenario: Unknown commands
+    Given a running console
+    When I send command "boom"
+    Then the console should still be running
+    And the output should contain "Unknown command: boom"

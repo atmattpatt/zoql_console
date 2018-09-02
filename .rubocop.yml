@@ -1,8 +1,19 @@
 Layout/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 
+Lint/HandleExceptions:
+  Exclude:
+    - features/step_definitions/**/*.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*_spec.rb
+
 Metrics/LineLength:
   Max: 120
+
+Metrics/MethodLength:
+  Max: 20
 
 Style/DocumentationMethod:
   Enabled: true

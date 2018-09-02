@@ -1,0 +1,18 @@
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Metrics/LineLength:
+  Max: 120
+
+Style/DocumentationMethod:
+  Enabled: true
+
+Style/MixinUsage:
+  Exclude:
+    - features/support/**/*.rb
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma

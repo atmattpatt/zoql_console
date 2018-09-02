@@ -9,7 +9,6 @@ Given "a running console" do
     err: @child_file,
     in: @read_pipe,
     out: @child_file,
-    pgroup: true,
     unsetenv_others: true,
   )
 
@@ -20,6 +19,12 @@ end
 When "I send command {string}" do |command|
   @write_pipe.puts(command)
   @write_pipe.close
+end
+
+Then "the console should still be running" do
+  expect(PTY.check(@console_pid)).to be_nil, "Process is not running"
+
+  @console_output = @parent_io.read
 end
 
 Then "the console should exit" do
@@ -37,4 +42,9 @@ end
 
 Then "the output should contain {string}" do |expected|
   expect(@console_output).to include(expected)
+end
+
+Then "the output should match {string}" do |expected|
+  regexp = Regexp.new(expected)
+  expect(@console_output).to match(regexp)
 end

@@ -20,11 +20,19 @@ module ZoqlConsole
         if exit?(buffer)
           puts "Bye!"
           break
+        elsif help?(buffer)
+          puts '\? Display this help'
+          puts '\q Quit the console'
         end
       end
     end
 
     private
+
+    def help?(buffer)
+      buffer = buffer.split
+      buffer.first == '\?'
+    end
 
     def exit?(buffer)
       buffer = buffer.split

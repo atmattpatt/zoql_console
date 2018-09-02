@@ -1,5 +1,12 @@
 Feature: Console commands
 
+  Scenario: Displaying console help
+    Given a running console
+    When I send command "\?"
+    Then the console should still be running
+    And the output should match "\\\?\s+Display this help"
+    And the output should match "\\q\s+Quit the console"
+
   Scenario: Quitting the console with "\q"
     Given a running console
     When I send command "\q"

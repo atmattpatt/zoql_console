@@ -11,6 +11,11 @@ module ZoqlConsole
     def initialize(config:)
       @interpreter = Interpreter.new
       @config = config
+
+      @completor = Completor.new(config: config)
+      Readline.completion_proc = proc do |input|
+        @completor.complete(input)
+      end
     end
 
     # Start the interactive console
